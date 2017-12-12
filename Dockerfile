@@ -8,9 +8,21 @@ ENV PHP_DIR=/opt/goodrain/php
 ENV PATH=$PATH:${APACHE_DIR}/bin:${PHP_DIR}/bin
 ENV DOWNLOAD_URL=https://pkg.goodrain.com/grstack/debian
 
+RUN apt-get update \
+    && apt-get install -y libapr1 libaprutil1 \
+    libxml2 libedit2 libpng12-dev libjpeg62-turbo-dev \
+    libfreetype6-dev libmcrypt-dev --no-install-recommends \
+    && rm -r /var/lib/apt/lists/*
+
 RUN set -x\
     && curl -k ${DOWNLOAD_URL}/apache-${APACHE_VERSION}-jessie.tar.gz | tar xz -C / \
     && curl -k ${DOWNLOAD_URL}/php-${PHP_VERSION}-jessie.tar.gz | tar xz -C /
+
+RUN set -x \
+    && groupadd  -g 200 rain \
+    && useradd -u 200 -g 200 rain \
+    && mkdir -p /data \
+    && echo "<?php\nphpinfo();\n?>" > /data/index.php
 
 EXPOSE 80
 
