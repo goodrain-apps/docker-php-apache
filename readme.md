@@ -6,13 +6,13 @@
 - 拉取镜像
 
 ```bash
-docker pull goodrainapps/php-apache:5.6.32
+docker pull goodrainapps/php-apache:5.6.32-jessie
 ```
 
 - 运行镜像
 
 ```bash
-docker run -it --rm -p 80:80 goodrainapps/php-apache:5.6.32
+docker run -it --rm -p 80:80 goodrainapps/php-apache:5.6.32-jessie
 ```
 
 ## apache文档主目录
